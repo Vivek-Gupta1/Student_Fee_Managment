@@ -1,0 +1,39 @@
+package Dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import AccountEnity.Account;
+import DbConnect.DB;
+
+public class AccountDao {
+
+	public static int save(Account acc) {
+		int status =0;
+		Connection con = DB.getCon();
+		try {
+			PreparedStatement stml = con.prepareStatement("insert into fee_account(sName,sEmail,sPassword,sAddress,sContact)value(?,?,?,?,?)");
+			stml.setString(1,acc.getsName());
+			stml.setString(2,acc.getsEmailId());
+			stml.setString(3,acc.getsPassword());
+			stml.setString(4,acc.getsAddress());
+			stml.setString(5,acc.getsContact());
+			
+			
+			
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+
+
+return 0;
+		
+	}
+}

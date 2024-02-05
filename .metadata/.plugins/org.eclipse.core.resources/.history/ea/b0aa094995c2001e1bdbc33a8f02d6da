@@ -1,0 +1,58 @@
+package Dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import AccountEnity.Account;
+import DbConnect.DB;
+
+public class AccountDao {
+
+	//for save the data 
+	public static int save(Account acc) {
+		int status =0;
+		Connection con = DB.getCon();
+		try {
+			PreparedStatement stml = con.prepareStatement("insert into fee_account(sName,sEmail,sPassword,sAddress,sContact)value(?,?,?,?,?)");
+			stml.setString(1,acc.getsName());
+			stml.setString(2,acc.getsEmailId());
+			stml.setString(3,acc.getsPassword());
+			stml.setString(4,acc.getsAddress());
+			stml.setString(5,acc.getsContact());
+			
+			status=stml.executeUpdate();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
+//		for validate person
+		public boolean validate(String sEmailId,String sPassword) {
+			boolean status=false;
+			Connection con = DB.getCon();
+			PreparedStatement stmt;
+			try {
+				stmt = con.prepareStatement("select * from fee_account where sEmailId=? and sPassword=?");
+			
+			stmt.setString(1,sEmailId);
+			stmt.setString(2,sPassword);
+			ResultSet set = stmt.executeQuery();
+			status=set.next();
+			con.close();
+			} catch (SQLException e) {
+				System.out.println(e);
+			}
+			return status;
+			
+		}
+		
+		
+
+
+
+		
+	}
+

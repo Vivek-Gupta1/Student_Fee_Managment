@@ -1,0 +1,120 @@
+package Dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import AccountEnity.Account;
+import DbConnect.DB;
+
+public class AccountDao {
+
+	//for save the data 
+	public static int save(Account acc) {
+		int status =0;
+		Connection con = DB.getCon();
+		try {
+			PreparedStatement stml = con.prepareStatement("insert into fee_account(sName,sEmail,sPassword,sAddress,sContact)value(?,?,?,?,?)");
+			stml.setString(1,acc.getsName());
+			stml.setString(2,acc.getsEmailId());
+			stml.setString(3,acc.getsPassword());
+			stml.setString(4,acc.getsAddress());
+			stml.setString(5,acc.getsContact());
+			
+			status=stml.executeUpdate();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
+//		for validate person
+		public boolean validate(String sEmailId,String sPassword) {
+			boolean status=false;
+			Connection con = DB.getCon();
+			PreparedStatement stmt;
+			try {
+				stmt = con.prepareStatement("select * from fee_account where sEmailId=? and sPassword=?");
+			
+			stmt.setString(1,sEmailId);
+			stmt.setString(2,sPassword);
+			ResultSet set = stmt.executeQuery();
+			status=set.next();
+			con.close();
+			} catch (SQLException e) {
+				System.out.println(e);
+			}
+			return status;
+		}
+		// for update
+		public static int update(Account acc) {
+			int status =0;
+			Connection con = DB.getCon();
+			try {
+				PreparedStatement cn = con.prepareStatement("update fee_account set sName=?,sEmailId=?,sPassword=?,sAddress=?,sContact=?");
+				cn.setString(1,acc.getsName());
+				cn.setString(2,acc.getsEmailId());
+				cn.setString(3,acc.getsPassword());
+				cn.setString(4,acc.getsAddress());
+				cn.setString(5,acc.getsContact());
+				cn.setInt   (6,acc.getsId());
+				status=cn.executeUpdate();
+				cn.close();
+			} catch (SQLException e) {
+			System.out.println(e);
+			}
+			return status;
+		}
+		
+	//for delete
+		public static int delete(int sId) {
+			 int status  = 0;
+			 Connection con = DB.getCon();
+			 try {
+				PreparedStatement st = con.prepareStatement("delete from fee_account where sId=?");
+				st.setInt(1,sId);
+				status= st.executeUpdate();
+				con.close();
+			} catch (SQLException e) {
+				System.out.println(e);
+			}
+			return status;
+
+		}
+		public static List<Account>getAllRecord(){
+			List<Account>ar=new ArrayList<>();
+			Connection con = DB.getCon();
+			try {
+				PreparedStatement ps = con.prepareStatement("Select * from fee_account");
+				ResultSet set = ps.executeQuery();
+				while(set.next()) {
+					Account ac = new  Account();
+					ac.setsId(set.getInt(1));
+					ac.setsName(set.getString(2));
+					ac.setsEmailId(set.getString(3));
+					ac.setsPassword(set.getString(4));
+					ac.setsAddress(set.getString(5));
+					ac.setsContact(set.getString(6));
+					ar.add(ac);
+				}
+				con.close();
+			} catch (SQLException e) {
+				System.out.println(e);
+				
+			}
+			return ar;
+			
+		}
+		//get record by id
+		
+		
+		
+
+
+
+		
+	}
+

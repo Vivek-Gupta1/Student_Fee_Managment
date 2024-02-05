@@ -1,0 +1,78 @@
+package AccountEnity;
+
+public class Account {
+	private int sId;
+	private String sName,sEmailId,sPassword,sAddress,sContact;
+	
+	public Account() {
+		super();
+	}
+
+	public Account(int id, String sName, String emailId, String password, String address, String contact) {
+		super();
+		this.id = sId;
+		this.name = sName;
+		this.emailId = sEmailId;
+		this.password = sPassword;
+		this.address = sAddress;
+		this.contact = sContact;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmailId() {
+		return emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", name=" + name + ", emailId=" + emailId + ", password=" + password + ", address="
+				+ address + ", contact=" + contact + "]";
+	}
+	
+	
+	
+
+}
