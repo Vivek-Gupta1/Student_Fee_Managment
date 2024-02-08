@@ -1,0 +1,37 @@
+package Dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import DbConnect.DB;
+import StudentEntity.copy.Student;
+
+public class StudentDao {
+
+	
+public static int save(Student stud) {
+	int status =0;
+	Connection con = DB.getCon();
+	try {
+		PreparedStatement stml = con.prepareStatement("insert into fee_account(name,emailId,sex,cource,fee,paid,due,address,contact)value(?,?,?,?,?,?,?,?,?)");
+		stml.setString(1,stud.getName());
+		stml.setString(2,stud.getEmailId());
+		stml.setString(3,stud.getSex());
+		stml.setString(4,stud.getCource());
+		stml.setDouble(5,stud.getFee());
+		stml.setDouble(6,stud.getPaid());
+		stml.setDouble(7,stud.getDue());
+		stml.setString(8,stud.getAddress());
+		stml.setString(8,stud.getContact());
+		status=stml.executeUpdate();
+		con.close();
+	} catch (SQLException e) {
+		System.out.println(e);
+	}
+	return status;
+}
+	
+	
+} 
+}

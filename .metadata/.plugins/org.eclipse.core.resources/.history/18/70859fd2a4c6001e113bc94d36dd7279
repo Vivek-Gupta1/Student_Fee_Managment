@@ -108,12 +108,12 @@ public class AccountDao {
 			
 		}
 		//get record by id
-		public static Account getRecordById(int sId ) {
+		public static Account getRecordById() {
 			Account ac = new Account();
 			Connection con = DB.getCon();
 			try {
 				PreparedStatement gs = con.prepareStatement("select * from fee_account where sId=?  ");
-			    gs.setInt(1,sId);
+//			gs.setInt(1,sId);
 				
 				ResultSet set = gs.executeQuery();
 				while(set.next()) {
